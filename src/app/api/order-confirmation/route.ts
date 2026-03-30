@@ -1,4 +1,4 @@
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Retrieve session from Stripe
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
     const orderId = session.metadata?.order_id;
 
     if (!orderId) {

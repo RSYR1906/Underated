@@ -1,5 +1,5 @@
 import { generateOrderNumber } from "@/lib/helpers";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
     // Create Stripe Checkout Session
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["paynow"],
       line_items: lineItems,
