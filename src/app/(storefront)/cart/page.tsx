@@ -1,18 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { formatPrice } from "@/lib/helpers";
 import { useCartStore } from "@/lib/store/cart";
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function CartPage() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHydrated();
   const { items, removeItem, updateQuantity, totalPrice } = useCartStore();
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted) {
     return (

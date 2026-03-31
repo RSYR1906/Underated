@@ -3,17 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { formatPrice } from "@/lib/helpers";
 import { useCartStore } from "@/lib/store/cart";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHydrated();
   const [loading, setLoading] = useState(false);
   const { items, totalPrice } = useCartStore();
   const [form, setForm] = useState({
@@ -21,8 +22,6 @@ export default function CheckoutPage() {
     customer_email: "",
     customer_phone: "",
   });
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
 

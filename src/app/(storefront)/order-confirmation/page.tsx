@@ -35,7 +35,7 @@ function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [order, setOrder] = useState<OrderDetails | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!sessionId);
   const clearCart = useCartStore((s) => s.clearCart);
 
   useEffect(() => {
@@ -50,8 +50,6 @@ function OrderConfirmationContent() {
           setLoading(false);
         })
         .catch(() => setLoading(false));
-    } else {
-      setLoading(false);
     }
   }, [sessionId, clearCart]);
 
